@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Confirmation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    }
+  </script>
+</head><link rel="stylesheet" href="style.css" />
+
+
+<body class="bg-darkbg text-white font-poppins flex items-center justify-center min-h-screen p-4">
+  <div class="bg-gray-800 p-8 rounded-xl shadow-md text-center max-w-md w-full" data-aos="zoom-in">
+    <h1 class="text-3xl font-bold text-primary mb-4">✅ Payment Confirmed!</h1>
+    <p class="text-lg mb-2">Application Type: <span id="type" class="text-green-400 font-semibold"></span></p>
+    <p class="text-lg mb-6">Amount Paid: <span id="amount" class="text-green-400 font-bold"></span></p>
+    <p class="text-sm text-gray-300 mb-4">Thank you for your payment. Our team will now begin processing your application.</p>
+    <a href="home.html" class="text-primary hover:underline">← Back to Home</a>
+  </div>
+
+  <script>
+    // Read query string
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type");
+
+    const typeDisplay = document.getElementById("type");
+    const amountDisplay = document.getElementById("amount");
+
+    if (type === "direct") {
+      typeDisplay.textContent = "Direct Placement";
+      amountDisplay.textContent = "KSh 950";
+    } else if (type === "interview") {
+      typeDisplay.textContent = "Interview Booking";
+      amountDisplay.textContent = "KSh 350";
+    } else {
+      typeDisplay.textContent = "General Application";
+      amountDisplay.textContent = "KSh 750";
+    }
+
+    // Optional auto-redirect (uncomment to activate after 5 seconds)
+    // setTimeout(() => {
+    //   window.location.href = "home.html";
+    // }, 5000);
+  </script>
+  <script>AOS.init();</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    };
+  </script>
+</head><link rel="stylesheet" href="style.css" />
+
+
+<body class="bg-darkbg text-white font-poppins min-h-screen flex flex-col">
+  <!-- Navigation -->
+  <header class="bg-gray-900 p-4 flex justify-between items-center shadow">
+    <a href="home.html" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="hidden md:flex space-x-4 text-sm">
+      <a href="home.html" class="hover:text-primary">Home</a>
+      <a href="jobs.html" class="hover:text-primary">Browse Jobs</a>
+      <a href="saved-jobs.html" class="hover:text-primary">Saved Jobs</a>
+      <a href="chat.html" class="text-primary font-semibold">Chat</a>
+      <a href="faq.html" class="hover:text-primary">FAQ</a>
+      <a href="report-issue.html" class="hover:text-primary">Report</a>
+      <a href="profile.html" class="hover:text-primary">Profile</a>
+      <button id="logoutBtn" class="hover:text-red-400">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Chat Section -->
+  <main class="flex-1 px-4 py-6 md:px-16" data-aos="fade-up">
+    <div class="max-w-3xl mx-auto bg-gray-800 rounded-lg shadow-lg flex flex-col h-[80vh]">
+      <div class="p-4 border-b border-gray-700 text-lg font-semibold text-primary">CareerLink Assistant</div>
+      <div id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-4 text-sm">
+        <div class="bg-primary text-white p-3 rounded-tl-none rounded-lg w-fit">Hi there! How can I assist you today?</div>
+      </div>
+      <div class="p-4 border-t border-gray-700 flex items-center gap-2">
+        <input id="userInput" type="text" placeholder="Type your message..." class="flex-1 px-4 py-2 bg-gray-700 text-white rounded focus:outline-none" />
+        <button id="sendBtn" class="bg-primary text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center gap-2">
+          <span>Send</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-4">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- Chat Logic -->
+  <script>
+    const input = document.getElementById('userInput');
+    const chatBox = document.getElementById('chat-box');
+    const sendBtn = document.getElementById('sendBtn');
+
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+
+    function sendMessage() {
+      const msg = input.value.trim();
+      if (!msg) return;
+
+      // Append user message
+      const userBubble = document.createElement('div');
+      userBubble.className = "bg-gray-600 text-white p-3 rounded-tr-none rounded-lg w-fit self-end ml-auto";
+      userBubble.textContent = msg;
+      chatBox.appendChild(userBubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      input.value = "";
+
+      setTimeout(() => respond(msg), 800);
+    }
+
+    function respond(message) {
+      let reply = "I'm here to help!";
+
+      if (message.toLowerCase().includes("apply")) {
+        reply = "To apply for jobs, go to 'Browse Jobs' then click on the job title to start the application.";
+      } else if (message.toLowerCase().includes("payment")) {
+        reply = "After applying, you'll be redirected to make a payment based on the type of application (Interview: KSh 350 / Direct: KSh 950).";
+      } else if (message.toLowerCase().includes("saved")) {
+        reply = "You can view your saved jobs by clicking on 'Saved Jobs' in the menu.";
+      } else if (message.toLowerCase().includes("logout")) {
+        reply = "Click on 'Logout' in the navigation bar to safely sign out.";
+      } else if (message.toLowerCase().includes("contact")) {
+        reply = "For direct assistance, email us at careerlinkke@gmail.com or WhatsApp +254102960463.";
+      }
+
+      const botBubble = document.createElement('div');
+      botBubble.className = "bg-primary text-white p-3 rounded-tl-none rounded-lg w-fit";
+      botBubble.textContent = reply;
+      chatBox.appendChild(botBubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // Logout Logic
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("careerlinkUser");
+      window.location.href = "login.html";
+    });
+  </script>
+
+  <script>AOS.init();</script>
+</body>
+</html>

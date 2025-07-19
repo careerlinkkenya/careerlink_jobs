@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Saved Jobs</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+  <!-- NAVIGATION -->
+  <nav class="bg-gray-800 p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="home.html" class="text-green-400 font-bold text-xl">CareerLink</a>
+      <div class="hidden md:flex space-x-6 items-center">
+        <a href="home.html" class="hover:text-green-400">Home</a>
+        <a href="jobs.html" class="hover:text-green-400">Find Jobs</a>
+        <a href="saved-jobs.html" class="hover:text-green-400 font-semibold">Saved</a>
+        <a href="chat.html" class="hover:text-green-400">Chat</a>
+        <a href="faq.html" class="hover:text-green-400">FAQ</a>
+        <a href="report-issue.html" class="hover:text-green-400">Report Issue</a>
+        <button onclick="logout()" class="text-red-500 hover:text-red-400">Logout</button>
+      </div>
+      <button class="md:hidden text-white" onclick="toggleMenu()">
+        <i data-feather="menu"></i>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden mt-2 space-y-2 px-4">
+      <a href="home.html" class="block hover:text-green-400">Home</a>
+      <a href="jobs.html" class="block hover:text-green-400">Find Jobs</a>
+      <a href="saved-jobs.html" class="block hover:text-green-400 font-semibold">Saved</a>
+      <a href="chat.html" class="block hover:text-green-400">Chat</a>
+      <a href="faq.html" class="block hover:text-green-400">FAQ</a>
+      <a href="report-issue.html" class="block hover:text-green-400">Report Issue</a>
+      <button onclick="logout()" class="text-red-500 hover:text-red-400">Logout</button>
+    </div>
+  </nav>
+
+  <!-- SAVED JOBS -->
+  <div class="container mx-auto px-4 py-10">
+    <h2 class="text-3xl font-bold text-green-400 mb-6">Saved Jobs</h2>
+    <div id="savedJobsContainer" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"></div>
+    <p id="emptyMsg" class="text-gray-400 mt-4 hidden">You have no saved jobs.</p>
+  </div>
+
+  <script>
+    feather.replace();
+
+    function toggleMenu() {
+      document.getElementById("mobileMenu").classList.toggle("hidden");
+    }
+
+    function logout() {
+      localStorage.removeItem('careerlinkUser');
+      window.location.href = "login.html";
+    }
+
+    // Authentication check
+    const user = JSON.parse(localStorage.getItem('careerlinkUser'));
+    if (!user) {
+      window.location.href = "login.html";
+    }
+
+    // Load saved jobs
+    const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
+    const container = document.getElementById("savedJobsContainer");
+    const emptyMsg = document.getElementById("emptyMsg");
+
+    if (savedJobs.length === 0) {
+      emptyMsg.classList.remove("hidden");
+    } else {
+      savedJobs.forEach((job, index) => {
+        const card = document.createElement("div");
+        card.className = "bg-gray-800 p-5 rounded-lg shadow-lg";
+        card.innerHTML = `
+          <h3 class="text-xl font-bold text-green-300">${job.title}</h3>
+          <p class="text-sm text-gray-300">Location: ${job.location}</p>
+          <p class="text-sm text-gray-300 mb-2">Salary: ${job.salary}</p>
+          <a href="job-detail.html?id=${job.id}" class="text-blue-400 underline block mb-3">View Details</a>
+          <button onclick="removeJob(${index})" class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded">Remove</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function removeJob(index) {
+      savedJobs.splice(index, 1);
+      localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+      location.reload();
+    }
+  </script>
+</body>
+</html>

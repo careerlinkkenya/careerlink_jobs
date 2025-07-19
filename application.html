@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Job Application</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    }
+  </script>
+</head><link rel="stylesheet" href="style.css" />
+
+
+<body class="bg-darkbg text-white font-poppins min-h-screen">
+  <!-- Navigation -->
+  <header class="bg-gray-900 text-white shadow p-4 flex justify-between items-center">
+    <a href="index.html" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="space-x-4 hidden md:block">
+      <a href="home.html" class="hover:text-primary">Home</a>
+      <a href="jobs.html" class="hover:text-primary">Browse Jobs</a>
+      <a href="how-it-works.html" class="hover:text-primary">How it Works</a>
+      <a href="profile.html" class="hover:text-primary">Profile</a>
+      <a href="saved-jobs.html" class="hover:text-primary">Saved Jobs</a>
+      <a href="chat.html" class="hover:text-primary">Chat</a>
+      <button id="logoutBtn" class="hover:text-red-400">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Application Form -->
+  <section class="py-12 px-4 flex justify-center">
+    <div class="bg-gray-800 rounded-lg shadow-md p-8 w-full max-w-2xl" data-aos="fade-up">
+      <h2 class="text-3xl font-bold text-primary mb-6">Job Application</h2>
+      <p class="mb-4 text-lg text-white">You're applying for: <span id="jobTitle" class="text-primary font-semibold"></span></p>
+      <form id="applicationForm" class="space-y-4">
+        <input type="text" id="fullName" placeholder="Full Name" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+        <input type="text" id="location" placeholder="Location (e.g. Nairobi)" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+        <input type="text" id="education" placeholder="Highest Qualification" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+        <input type="text" id="experience" placeholder="Work Experience" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+        <input type="tel" id="phone" placeholder="Phone Number" required class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none">
+        <button type="submit" class="w-full bg-primary text-white py-2 rounded hover:bg-green-700 transition">Submit Application</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa",
+      measurementId: "G-JR4PQD3EKL"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Auth Check
+    const user = JSON.parse(localStorage.getItem("careerlinkUser"));
+    if (!user) {
+      alert("Please log in first.");
+      window.location.href = "login.html";
+    }
+
+    // Logout Button
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      signOut(auth);
+      localStorage.removeItem("careerlinkUser");
+      window.location.href = "login.html";
+    });
+
+    // Read job from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const jobTitle = urlParams.get("job");
+    const jobType = urlParams.get("type"); // direct, interview, etc.
+    document.getElementById("jobTitle").textContent = jobTitle || "Unknown Job";
+
+    // Handle application submit
+    document.getElementById("applicationForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      // Simulate form save...
+      alert("Application submitted successfully. Proceed to payment.");
+      window.location.href = `payment.html?type=${jobType}`;
+    });
+  </script>
+  <script>AOS.init();</script>
+</body>
+</html>

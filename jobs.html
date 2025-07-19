@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Browse Jobs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    }
+  </script>
+</head><link rel="stylesheet" href="style.css" />
+
+
+<body class="bg-darkbg text-white font-poppins">
+  <!-- Header -->
+  <header class="bg-gray-900 text-white p-4 flex justify-between items-center shadow fixed top-0 w-full z-50">
+    <a href="home.html" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="hidden md:flex gap-6 items-center">
+      <a href="home.html" class="hover:text-primary">Home</a>
+      <a href="jobs.html" class="text-primary font-bold">Browse Jobs</a>
+      <a href="how-it-works.html" class="hover:text-primary">How It Works</a>
+      <a href="saved-jobs.html" class="hover:text-primary">Saved Jobs</a>
+      <a href="profile.html" id="nav-profile" class="hover:text-primary hidden">Profile</a>
+      <button id="logoutBtn" class="hover:text-red-400 hidden">Logout</button>
+      <a href="login.html" id="nav-login" class="hover:text-primary">Login</a>
+      <a href="signup.html" id="nav-signup" class="hover:text-primary">Register</a>
+    </nav>
+    <!-- Mobile Menu -->
+    <button id="menuToggle" class="md:hidden focus:outline-none">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="md:hidden bg-gray-800 text-white p-4 hidden mt-16 space-y-2">
+    <a href="home.html" class="block hover:text-primary">Home</a>
+    <a href="jobs.html" class="block text-primary font-bold">Browse Jobs</a>
+    <a href="how-it-works.html" class="block hover:text-primary">How It Works</a>
+    <a href="saved-jobs.html" class="block hover:text-primary">Saved Jobs</a>
+    <a href="profile.html" id="mobile-nav-profile" class="block hover:text-primary hidden">Profile</a>
+    <button id="mobileLogoutBtn" class="block hover:text-red-400 hidden">Logout</button>
+    <a href="login.html" id="mobile-nav-login" class="block hover:text-primary">Login</a>
+    <a href="signup.html" id="mobile-nav-signup" class="block hover:text-primary">Register</a>
+  </div>
+
+  <!-- Jobs List -->
+  <main class="pt-28 px-4 md:px-12 pb-16">
+    <h1 class="text-3xl font-bold text-primary mb-8 text-center" data-aos="fade-up">Available Jobs</h1>
+    <div id="jobsContainer" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" data-aos="fade-up"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-400 py-6 border-t border-gray-700">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Firebase guard
+    const user = localStorage.getItem("careerlinkUser");
+    if (!user) window.location.href = "login.html";
+
+    // Nav display
+    if (user) {
+      document.getElementById("nav-login").classList.add("hidden");
+      document.getElementById("nav-signup").classList.add("hidden");
+      document.getElementById("nav-profile").classList.remove("hidden");
+      document.getElementById("logoutBtn").classList.remove("hidden");
+
+      document.getElementById("mobile-nav-login").classList.add("hidden");
+      document.getElementById("mobile-nav-signup").classList.add("hidden");
+      document.getElementById("mobile-nav-profile").classList.remove("hidden");
+      document.getElementById("mobileLogoutBtn").classList.remove("hidden");
+    }
+
+    // Logout
+    document.getElementById("logoutBtn").onclick = () => {
+      localStorage.removeItem("careerlinkUser");
+      window.location.href = "login.html";
+    };
+    document.getElementById("mobileLogoutBtn").onclick = () => {
+      localStorage.removeItem("careerlinkUser");
+      window.location.href = "login.html";
+    };
+
+    // Mobile menu toggle
+    document.getElementById("menuToggle").onclick = () => {
+      document.getElementById("mobileMenu").classList.toggle("hidden");
+    };
+
+    // Job data
+    const jobs = [
+      { id: 1, title: "Customer Care Representative", location: "Nairobi", salary: "KSh 30,000", type: "Full Time" },
+      { id: 2, title: "Data Entry Clerk", location: "Nairobi", salary: "KSh 28,000", type: "Remote" },
+      { id: 3, title: "Sales Executive", location: "Nairobi", salary: "KSh 35,000", type: "Commission" },
+      { id: 4, title: "Receptionist", location: "Nairobi", salary: "KSh 32,000", type: "On-site" },
+      { id: 5, title: "Digital Marketer", location: "Nairobi", salary: "KSh 40,000", type: "Contract" },
+      { id: 6, title: "Store Keeper", location: "Nairobi", salary: "KSh 30,000", type: "Full Time" },
+      { id: 7, title: "Administrative Assistant", location: "Nairobi", salary: "KSh 33,000", type: "Full Time" },
+      { id: 8, title: "Online Support Agent", location: "Nairobi", salary: "KSh 29,000", type: "Remote" },
+      { id: 9, title: "HR Assistant", location: "Nairobi", salary: "KSh 42,000", type: "Full Time" },
+      { id: 10, title: "Cleaner", location: "Nairobi", salary: "KSh 22,000", type: "Part Time" },
+      { id: 11, title: "Security Guard", location: "Nairobi", salary: "KSh 25,000", type: "Full Time" },
+      { id: 12, title: "Waiter / Waitress", location: "Nairobi", salary: "KSh 20,000", type: "Shift" },
+      { id: 13, title: "Barista", location: "Nairobi", salary: "KSh 27,000", type: "Shift" },
+      { id: 14, title: "IT Support Assistant", location: "Nairobi", salary: "KSh 38,000", type: "Contract" },
+      { id: 15, title: "Content Creator", location: "Nairobi", salary: "KSh 40,000", type: "Remote" },
+      { id: 16, title: "Field Marketer", location: "Nairobi", salary: "KSh 33,000", type: "Full Time" },
+      { id: 17, title: "Delivery Rider", location: "Nairobi", salary: "KSh 28,000", type: "Commission" },
+      { id: 18, title: "Kitchen Assistant", location: "Nairobi", salary: "KSh 24,000", type: "Full Time" },
+      { id: 19, title: "Call Center Agent", location: "Nairobi", salary: "KSh 35,000", type: "Remote" },
+      { id: 20, title: "Cashier", location: "Nairobi", salary: "KSh 31,000", type: "Full Time" },
+      { id: 21, title: "Messenger", location: "Nairobi", salary: "KSh 23,000", type: "Full Time" },
+      { id: 22, title: "Warehouse Loader", location: "Nairobi", salary: "KSh 26,000", type: "Shift" },
+      { id: 23, title: "Accounts Clerk", location: "Nairobi", salary: "KSh 39,000", type: "Full Time" },
+      { id: 24, title: "Personal Assistant", location: "Nairobi", salary: "KSh 44,000", type: "Full Time" },
+      { id: 25, title: "Event Coordinator", location: "Nairobi", salary: "KSh 41,000", type: "Contract" },
+    ];
+
+    const container = document.getElementById("jobsContainer");
+    jobs.forEach(job => {
+      const div = document.createElement("div");
+      div.className = "bg-gray-800 p-6 rounded shadow hover:shadow-lg transition";
+      div.innerHTML = `
+        <h3 class="text-xl font-bold text-primary mb-2">${job.title}</h3>
+        <p class="text-sm text-gray-300">📍 ${job.location} &nbsp;&nbsp; 💰 ${job.salary} &nbsp;&nbsp; 🕒 ${job.type}</p>
+        <div class="mt-4 flex justify-between">
+          <a href="application.html?job=${encodeURIComponent(job.title)}" class="bg-primary text-white px-4 py-2 rounded hover:bg-green-600">Apply Now</a>
+          <button onclick="saveJob('${job.id}', '${job.title}', '${job.location}', '${job.salary}')" class="text-sm text-green-400 hover:underline">Save Job</button>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+
+    function saveJob(id, title, location, salary) {
+      const savedJobs = JSON.parse(localStorage.getItem("savedJobs") || "[]");
+      if (!savedJobs.some(job => job.id === id)) {
+        savedJobs.push({ id, title, location, salary });
+        localStorage.setItem("savedJobs", JSON.stringify(savedJobs));
+        alert("Job saved!");
+      } else {
+        alert("Job already saved.");
+      }
+    }
+
+    AOS.init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-darkbg text-white font-poppins min-h-screen">
+  <!-- Header -->
+  <header class="bg-gray-900 text-white shadow p-4 flex justify-between items-center">
+    <a href="index.html" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="space-x-4 hidden md:block">
+      <a href="home.html" class="hover:text-primary">Home</a>
+      <a href="jobs.html" class="hover:text-primary">Browse Jobs</a>
+      <a href="how-it-works.html" class="hover:text-primary">How it Works</a>
+      <a href="saved-jobs.html" class="hover:text-primary">Saved Jobs</a>
+      <a href="profile.html" class="hover:text-primary">Profile</a>
+      <button id="logoutBtn" class="hover:text-red-400">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Welcome -->
+  <section class="px-4 py-10 text-center">
+    <h1 class="text-3xl font-bold text-primary mb-2" data-aos="fade-down">Welcome to CareerLink</h1>
+    <p id="welcome" class="text-lg text-gray-300" data-aos="fade-up">Connecting you to verified Nairobi jobs</p>
+  </section>
+
+  <!-- Featured Jobs -->
+  <section class="px-4 py-6">
+    <h2 class="text-2xl font-bold mb-6 text-primary text-center" data-aos="fade-right">🔥 Featured Jobs</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Job Cards -->
+      <div data-aos="zoom-in" class="bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-xl font-bold text-white">Customer Care Representative</h3>
+        <p class="text-gray-300">Location: Nairobi</p>
+        <p class="text-gray-300">Salary: KSh 38,000</p>
+        <p class="text-gray-400 text-sm">Respond to customer queries in a call center.</p>
+        <a href="application.html?type=direct&job=Customer%20Care" class="block mt-3 bg-primary py-2 text-center rounded text-white hover:bg-green-700">Apply Now</a>
+      </div>
+
+      <div data-aos="zoom-in" class="bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-xl font-bold text-white">Delivery Assistant (Interview Booking)</h3>
+        <p class="text-gray-300">Location: Nairobi</p>
+        <p class="text-gray-300">Salary: KSh 27,000</p>
+        <p class="text-gray-400 text-sm">Deliver packages & help riders. Interview required.</p>
+        <a href="application.html?type=interview&job=Delivery%20Assistant" class="block mt-3 bg-primary py-2 text-center rounded text-white hover:bg-green-700">Book Interview (KSh 350)</a>
+      </div>
+
+      <div data-aos="zoom-in" class="bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-xl font-bold text-white">Cashier - Supermarket</h3>
+        <p class="text-gray-300">Location: Nairobi</p>
+        <p class="text-gray-300">Salary: KSh 35,000</p>
+        <p class="text-gray-400 text-sm">Scan & manage customer purchases.</p>
+        <a href="application.html?type=direct&job=Cashier" class="block mt-3 bg-primary py-2 text-center rounded text-white hover:bg-green-700">Apply Now</a>
+      </div>
+
+      <div data-aos="zoom-in" class="bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-xl font-bold text-white">Sales Agent (Interview Booking)</h3>
+        <p class="text-gray-300">Location: Nairobi</p>
+        <p class="text-gray-300">Salary: KSh 33,000</p>
+        <p class="text-gray-400 text-sm">Sell services over the phone. Interview prep included.</p>
+        <a href="application.html?type=interview&job=Sales%20Agent" class="block mt-3 bg-primary py-2 text-center rounded text-white hover:bg-green-700">Book Interview (KSh 350)</a>
+      </div>
+
+      <div data-aos="zoom-in" class="bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-xl font-bold text-white">Hotel Room Attendant</h3>
+        <p class="text-gray-300">Location: Nairobi</p>
+        <p class="text-gray-300">Salary: KSh 30,000</p>
+        <p class="text-gray-400 text-sm">Clean and maintain guest rooms in hotels.</p>
+        <a href="application.html?type=direct&job=Hotel%20Attendant" class="block mt-3 bg-primary py-2 text-center rounded text-white hover:bg-green-700">Apply Now</a>
+      </div>
+
+      <div data-aos="zoom-in" class="bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-xl font-bold text-white">Stock Controller (Interview Booking)</h3>
+        <p class="text-gray-300">Location: Nairobi</p>
+        <p class="text-gray-300">Salary: KSh 40,000</p>
+        <p class="text-gray-400 text-sm">Manage and monitor stock levels.</p>
+        <a href="application.html?type=interview&job=Stock%20Controller" class="block mt-3 bg-primary py-2 text-center rounded text-white hover:bg-green-700">Book Interview (KSh 350)</a>
+      </div>
+
+      <div data-aos="zoom-in" class="bg-gray-800 p-4 rounded shadow">
+        <h3 class="text-xl font-bold text-white">Receptionist</h3>
+        <p class="text-gray-300">Location: Nairobi</p>
+        <p class="text-gray-300">Salary: KSh 42,000</p>
+        <p class="text-gray-400 text-sm">Front desk operations and visitor handling.</p>
+        <a href="application.html?type=direct&job=Receptionist" class="block mt-3 bg-primary py-2 text-center rounded text-white hover:bg-green-700">Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- Auth Check -->
+  <script>
+    AOS.init();
+    const user = JSON.parse(localStorage.getItem("careerlinkUser"));
+    if (!user) window.location.href = "login.html";
+    else document.getElementById("welcome").innerText = `Welcome ${user.name}, explore today's jobs!`;
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("careerlinkUser");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

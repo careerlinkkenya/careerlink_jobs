@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Messages | CareerLink</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10b981',
+            darkBg: '#1f2937',
+            darkCard: '#374151'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-darkBg text-white font-sans min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-darkCard p-4 shadow flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-primary">CareerLink Admin</h1>
+    <nav class="space-x-4">
+      <a href="admin-dashboard.html" class="hover:text-primary">Dashboard</a>
+      <a href="admin-applications.html" class="hover:text-primary">Applications</a>
+      <a href="admin-messages.html" class="text-white font-medium hover:text-primary">Messages</a>
+      <a href="admin-payments.html" class="hover:text-primary">Payments</a>
+      <button id="logoutBtn" class="text-red-400 hover:text-red-600">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Content -->
+  <main class="p-6">
+    <h2 class="text-2xl font-semibold mb-4">User Messages</h2>
+    <div id="messagesList" class="space-y-4">
+      <!-- Firebase messages will load here -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 border-t border-gray-700 mt-10 text-sm text-gray-400">
+    &copy; 2025 CareerLink Admin Portal. All rights reserved.
+  </footer>
+
+  <!-- Firebase Script -->
+  <script type="module">
+    import { auth, db } from './firebase.js';
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth).then(() => window.location.href = 'login.html');
+    });
+
+    const messagesList = document.getElementById('messagesList');
+
+    onAuthStateChanged(auth, async user => {
+      if (!user) return (window.location.href = 'login.html');
+
+      const querySnapshot = await getDocs(collection(db, "messages"));
+      if (querySnapshot.empty) {
+        messagesList.innerHTML = `<p class="text-gray-400">No messages found.</p>`;
+        return;
+      }
+
+      querySnapshot.forEach(doc => {
+        const msg = doc.data();
+        const card = document.createElement('div');
+        card.className = 'bg-darkCard p-4 rounded shadow';
+
+        card.innerHTML = `
+          <h3 class="text-lg font-bold text-primary">${msg.name || 'No Name'}</h3>
+          <p><strong>Email:</strong> ${msg.email || 'N/A'}</p>
+          <p class="mt-2 text-gray-300"><strong>Message:</strong> ${msg.message || 'No message'}</p>
+          <p class="text-sm text-gray-500 mt-2">${new Date(msg.timestamp?.seconds * 1000).toLocaleString() || ''}</p>
+        `;
+        messagesList.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>

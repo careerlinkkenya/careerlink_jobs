@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | FAQ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    };
+  </script>
+</head><link rel="stylesheet" href="style.css" />
+
+
+<body class="bg-darkbg text-white font-poppins min-h-screen flex flex-col">
+  <!-- Navigation -->
+  <header class="bg-gray-900 p-4 flex justify-between items-center shadow">
+    <a href="home.html" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="hidden md:flex space-x-4 text-sm">
+      <a href="home.html" class="hover:text-primary">Home</a>
+      <a href="jobs.html" class="hover:text-primary">Browse Jobs</a>
+      <a href="saved-jobs.html" class="hover:text-primary">Saved Jobs</a>
+      <a href="chat.html" class="hover:text-primary">Chat</a>
+      <a href="faq.html" class="text-primary font-semibold">FAQ</a>
+      <a href="report-issue.html" class="hover:text-primary">Report</a>
+      <a href="profile.html" class="hover:text-primary">Profile</a>
+      <button id="logoutBtn" class="hover:text-red-400">Logout</button>
+    </nav>
+  </header>
+
+  <!-- FAQ Section -->
+  <main class="flex-1 px-4 py-8 md:px-20" data-aos="fade-up">
+    <h1 class="text-3xl font-semibold text-center mb-8 text-primary">Frequently Asked Questions</h1>
+    <div class="space-y-4 max-w-3xl mx-auto">
+      <!-- FAQ 1 -->
+      <div class="border border-gray-700 rounded">
+        <button class="w-full text-left px-4 py-3 bg-gray-800 focus:outline-none faq-toggle">
+          <span class="text-lg">🔍 How do I apply for a job on CareerLink?</span>
+        </button>
+        <div class="hidden px-4 py-3 bg-gray-700 text-sm">
+          Browse available jobs on the “Browse Jobs” page, click on the job title to view details, and click the apply button. You must be signed in to apply.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="border border-gray-700 rounded">
+        <button class="w-full text-left px-4 py-3 bg-gray-800 focus:outline-none faq-toggle">
+          <span class="text-lg">💵 Why do I need to pay to apply?</span>
+        </button>
+        <div class="hidden px-4 py-3 bg-gray-700 text-sm">
+          CareerLink charges a small service fee to filter serious candidates and to process your application. Interview booking costs KSh 350, direct placement is KSh 950.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="border border-gray-700 rounded">
+        <button class="w-full text-left px-4 py-3 bg-gray-800 focus:outline-none faq-toggle">
+          <span class="text-lg">🔐 How do I know my application is secure?</span>
+        </button>
+        <div class="hidden px-4 py-3 bg-gray-700 text-sm">
+          We use secure Firebase authentication and store your data safely. Only verified employers can access your applications.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="border border-gray-700 rounded">
+        <button class="w-full text-left px-4 py-3 bg-gray-800 focus:outline-none faq-toggle">
+          <span class="text-lg">🧾 What happens after I apply?</span>
+        </button>
+        <div class="hidden px-4 py-3 bg-gray-700 text-sm">
+          After applying and making payment, our team connects you to the employer. For direct placements, you get assigned immediately. For interviews, we help schedule and prepare you.
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="border border-gray-700 rounded">
+        <button class="w-full text-left px-4 py-3 bg-gray-800 focus:outline-none faq-toggle">
+          <span class="text-lg">🛠 How can I report an issue or get help?</span>
+        </button>
+        <div class="hidden px-4 py-3 bg-gray-700 text-sm">
+          Visit the <a href="report-issue.html" class="text-primary underline">Report Issue</a> page or contact us via WhatsApp: +254102960463 or email: careerlinkke@gmail.com.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-4">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- Toggle FAQ -->
+  <script>
+    document.querySelectorAll('.faq-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.nextElementSibling;
+        content.classList.toggle('hidden');
+      });
+    });
+
+    // Logout Logic
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("careerlinkUser");
+      window.location.href = "login.html";
+    });
+  </script>
+
+  <script>AOS.init();</script>
+</body>
+</html>

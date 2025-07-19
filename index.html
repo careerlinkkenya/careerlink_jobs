@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Your Career Starts Here</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-darkbg text-white font-poppins">
+
+  <!-- Navbar -->
+  <header class="bg-gray-900 p-4 flex justify-between items-center shadow">
+    <a href="#" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="space-x-4 hidden md:block">
+      <a href="login.html" class="hover:text-primary">Login</a>
+      <a href="signup.html" class="hover:text-primary">Register</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="text-center py-20 px-4">
+    <h1 class="text-4xl md:text-5xl font-bold text-primary mb-4">Find Your Next Job</h1>
+    <p class="text-lg text-gray-300 mb-8">CareerLink connects you with top opportunities across Nairobi.</p>
+    <div class="space-x-4">
+      <a href="login.html" class="bg-primary px-6 py-2 rounded hover:bg-green-700 transition">Login</a>
+      <a href="signup.html" class="border border-primary px-6 py-2 rounded hover:bg-primary transition">Register</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="bg-gray-800 py-12 px-6 text-center">
+    <h2 class="text-2xl font-bold mb-4 text-primary">Why CareerLink?</h2>
+    <p class="text-gray-300 max-w-xl mx-auto">We offer direct placements, interview bookings, and personalized job matching for job seekers across all industries. Whether you’re starting out or upgrading your career, we’re here to help you every step of the way.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-500 py-6">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+</body>
+</html>

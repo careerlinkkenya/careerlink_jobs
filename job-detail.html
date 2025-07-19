@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Job Detail</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: {
+            primary: '#16a34a',
+            darkbg: '#0f172a'
+          }
+        }
+      }
+    }
+  </script>
+</head><link rel="stylesheet" href="style.css" />
+
+<body class="bg-darkbg text-white font-poppins min-h-screen">
+  <!-- Navigation -->
+  <header class="bg-gray-900 text-white shadow p-4 flex justify-between items-center">
+    <a href="index.html" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="space-x-4 hidden md:block">
+      <a href="home.html" class="hover:text-primary">Home</a>
+      <a href="jobs.html" class="hover:text-primary">Browse Jobs</a>
+      <a href="how-it-works.html" class="hover:text-primary">How it Works</a>
+      <a href="profile.html" class="hover:text-primary">Profile</a>
+      <button id="logoutBtn" class="hover:text-red-400">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Job Detail Section -->
+  <section class="max-w-4xl mx-auto py-12 px-6" data-aos="fade-up">
+    <div id="job-container" class="bg-gray-800 rounded-lg shadow p-8 space-y-6">
+      <!-- Content will be dynamically injected -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center text-sm text-gray-400 py-6">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- AOS -->
+  <script>AOS.init();</script>
+
+  <!-- Job Detail Script -->
+  <script>
+    const jobData = JSON.parse(localStorage.getItem('careerlink_jobs') || '[]');
+    const params = new URLSearchParams(window.location.search);
+    const jobId = params.get('id');
+    const job = jobData.find(j => j.id === jobId);
+
+    const container = document.getElementById('job-container');
+
+    if (job) {
+      container.innerHTML = `
+        <h2 class="text-3xl font-bold text-primary mb-2">${job.title}</h2>
+        <p class="text-gray-300 mb-2"><strong>Company:</strong> ${job.company}</p>
+        <p class="text-gray-300 mb-2"><strong>Location:</strong> ${job.location}</p>
+        <p class="text-gray-300 mb-2"><strong>Salary:</strong> ${job.salary}</p>
+        <p class="text-gray-300 mb-4"><strong>Type:</strong> ${job.type}</p>
+        <div class="text-gray-300 mb-4"><strong>Description:</strong> <p>${job.description}</p></div>
+        <div class="text-gray-300 mb-4"><strong>Qualifications:</strong> <p>${job.qualifications}</p></div>
+        <div class="text-gray-300 mb-4"><strong>Roles:</strong> <p>${job.roles}</p></div>
+        <div class="text-center">
+          <a href="application.html?id=${job.id}" class="bg-primary text-white px-6 py-2 rounded hover:bg-green-700 transition">Apply Now</a>
+        </div>
+      `;
+    } else {
+      container.innerHTML = `<p class="text-red-400">Job not found. Please go back to <a href='jobs.html' class="underline text-primary">jobs page</a>.</p>`;
+    }
+  </script>
+
+  <!-- Logout Function -->
+  <script>
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("careerlinkUser");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerLink | FAQ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif']
+          },
+          colors: {
+            primary: '#16a34a'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-white font-poppins">
+
+  <!-- Auth Guard -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+
+  <header class="p-4 shadow bg-white dark:bg-gray-800 flex justify-between items-center">
+    <a href="home.html" class="text-2xl font-bold text-primary">CareerLink</a>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="home.html" class="hover:text-primary">Home</a>
+      <a href="jobs.html" class="hover:text-primary">Browse Jobs</a>
+      <a href="contact.html" class="hover:text-primary">Contact</a>
+      <a href="faq.html" class="text-primary font-bold">FAQs</a>
+    </nav>
+  </header>
+
+  <main class="max-w-4xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-6 text-center">Frequently Asked Questions</h1>
+    <div class="space-y-6">
+      <div>
+        <h2 class="font-semibold text-lg">💼 How do I apply for jobs?</h2>
+        <p class="text-gray-600 dark:text-gray-300">Sign up, log in, browse jobs, and click the "Apply" button to submit your application.</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-lg">📱 How do I pay the application or interview fee?</h2>
+        <p class="text-gray-600 dark:text-gray-300">Payment is made via Airtel Money to <strong>0102960463 (Patrick Muturi)</strong>. Upload your payment screenshot during the application.</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-lg">👥 Can I save jobs and apply later?</h2>
+        <p class="text-gray-600 dark:text-gray-300">Yes, just click the save icon on any job. You can find saved jobs in your account.</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-lg">📩 Where can I ask further questions?</h2>
+        <p class="text-gray-600 dark:text-gray-300">Use the <a href="chat.html" class="text-primary underline">chat assistant</a> for support or contact us via email or WhatsApp.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-10 bg-gray-100 dark:bg-gray-800 p-6 text-center text-sm text-gray-500 dark:text-gray-400">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+</body>
+</html>

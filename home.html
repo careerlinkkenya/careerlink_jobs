@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerLink | Home</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-app-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-auth-compat.js"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white">
+
+  <!-- Navigation -->
+  <nav class="bg-white dark:bg-gray-800 shadow-md fixed top-0 left-0 w-full z-50">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
+      <a href="home.html" class="text-xl font-bold text-green-600">CareerLink</a>
+      <ul class="flex space-x-4 text-sm md:text-base">
+        <li><a href="home.html" class="hover:text-green-500">Home</a></li>
+        <li><a href="jobs.html" class="hover:text-green-500">Jobs</a></li>
+        <li><a href="how-it-works.html" class="hover:text-green-500">How it Works</a></li>
+        <li><a href="contact.html" class="hover:text-green-500">Contact</a></li>
+        <li><a href="#" onclick="logout()" class="text-red-500 hover:underline">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-24 pb-12 px-6 text-center bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800">
+    <h1 class="text-4xl font-bold mb-4" data-aos="fade-up">Find Your Dream Job Today</h1>
+    <p class="text-lg" data-aos="fade-up" data-aos-delay="100">CareerLink connects you with the best employers in Kenya. Start your journey today.</p>
+    <a href="jobs.html" class="mt-6 inline-block bg-green-600 text-white px-6 py-2 rounded-full shadow hover:bg-green-700" data-aos="fade-up" data-aos-delay="200">Browse Jobs</a>
+  </section>
+
+  <!-- Featured Jobs -->
+  <section class="py-12 px-6 max-w-6xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-6" data-aos="fade-right">Featured Jobs</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow" data-aos="zoom-in">
+        <h3 class="font-bold text-lg">Customer Care Agent</h3>
+        <p class="text-sm">Nairobi | KSh 32,000</p>
+        <a href="job-detail.html?id=1" class="text-green-600 mt-2 inline-block hover:underline">Apply Now</a>
+      </div>
+      <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow" data-aos="zoom-in" data-aos-delay="100">
+        <h3 class="font-bold text-lg">Digital Marketing Intern</h3>
+        <p class="text-sm">Nairobi | KSh 28,500</p>
+        <a href="job-detail.html?id=2" class="text-green-600 mt-2 inline-block hover:underline">Apply Now</a>
+      </div>
+      <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow" data-aos="zoom-in" data-aos-delay="200">
+        <h3 class="font-bold text-lg">Field Sales Officer</h3>
+        <p class="text-sm">Nairobi | KSh 30,000</p>
+        <a href="job-detail.html?id=3" class="text-green-600 mt-2 inline-block hover:underline">Apply Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-12 px-6 bg-gray-50 dark:bg-gray-700">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-2xl font-semibold mb-6" data-aos="fade-down">Why Choose CareerLink?</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-left">
+        <div class="p-4" data-aos="fade-up">
+          <h3 class="font-bold">Verified Jobs</h3>
+          <p>We verify all job listings before publishing.</p>
+        </div>
+        <div class="p-4" data-aos="fade-up" data-aos-delay="100">
+          <h3 class="font-bold">Affordable Application</h3>
+          <p>Low-cost access to premium jobs starting at KSh 350.</p>
+        </div>
+        <div class="p-4" data-aos="fade-up" data-aos-delay="200">
+          <h3 class="font-bold">Real-time Support</h3>
+          <p>Ask questions via our chat page or contact form.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="py-8 px-6 bg-white dark:bg-gray-800">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-4">
+      <div>
+        <h4 class="font-bold mb-2">Navigation</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="jobs.html">Find Jobs</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Support</h4>
+        <ul class="space-y-1 text-sm">
+          <li><a href="faq.html">FAQs</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy-policy.html">Privacy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-2">Contact</h4>
+        <p class="text-sm">careerlinkke@gmail.com<br>WhatsApp: +254102960463</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 dark:bg-gray-900 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+    © 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- Firebase + Auth Check -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+    AOS.init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100 text-gray-900 dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Admin Users</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { poppins: ['Poppins', 'sans-serif'] }}}}
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+</head>
+<body class="bg-white min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-green-600 text-white p-4 flex justify-between items-center shadow">
+    <a href="admin-dashboard.html" class="text-xl font-semibold">CareerLink Admin</a>
+    <div class="space-x-4">
+      <a href="admin-dashboard.html">Dashboard</a>
+      <a href="admin-users.html" class="font-bold underline">Users</a>
+      <a href="admin-jobs.html">Jobs</a>
+      <a href="admin-payments.html">Payments</a>
+      <a href="index.html" class="bg-white text-green-600 px-3 py-1 rounded hover:bg-gray-100">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <section class="p-6">
+    <h1 class="text-2xl font-bold mb-4">Registered Users</h1>
+    <div class="overflow-x-auto shadow rounded-lg">
+      <table class="min-w-full bg-white border border-gray-200 text-sm text-left">
+        <thead class="bg-green-100 text-gray-700">
+          <tr>
+            <th class="p-3 border">Name</th>
+            <th class="p-3 border">Email</th>
+            <th class="p-3 border">Type</th>
+            <th class="p-3 border">Date Registered</th>
+          </tr>
+        </thead>
+        <tbody id="usersTable" class="text-gray-800">
+          <tr>
+            <td colspan="4" class="text-center p-4">Loading users...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Firebase Config & Script -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa",
+      measurementId: "G-JR4PQD3EKL"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function loadUsers() {
+      const tableBody = document.getElementById('usersTable');
+      tableBody.innerHTML = '';
+      try {
+        const snapshot = await db.collection('users').orderBy("registered", "desc").get();
+        if (snapshot.empty) {
+          tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center">No users found.</td></tr>`;
+          return;
+        }
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const row = `
+            <tr class="border-t hover:bg-gray-50">
+              <td class="p-3 border">${data.name || 'N/A'}</td>
+              <td class="p-3 border">${data.email || 'N/A'}</td>
+              <td class="p-3 border">${data.type || 'User'}</td>
+              <td class="p-3 border">${data.registered || 'N/A'}</td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
+        });
+      } catch (err) {
+        console.error("Error loading users:", err);
+        tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-red-500">Failed to load users.</td></tr>`;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadUsers);
+  </script>
+</body>
+</html>

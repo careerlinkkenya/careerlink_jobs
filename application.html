@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apply for Job | CareerLink</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { poppins: ['Poppins', 'sans-serif'] },
+          colors: { primary: '#16a34a' }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+</head>
+<body class="dark:bg-gray-900 text-gray-900 dark:text-white">
+
+  <!-- Navigation -->
+  <nav class="bg-white dark:bg-gray-800 p-4 shadow flex justify-between items-center">
+    <a href="home.html" class="text-xl font-bold text-primary">CareerLink</a>
+    <div class="flex gap-4 items-center">
+      <button id="logoutBtn" class="text-sm bg-primary text-white px-3 py-1 rounded">Logout</button>
+    </div>
+  </nav>
+
+  <!-- Application Form -->
+  <main class="max-w-2xl mx-auto p-6 mt-8 bg-white dark:bg-gray-800 rounded shadow">
+    <h2 class="text-2xl font-semibold mb-4">Job Application</h2>
+    <form id="applicationForm" class="space-y-4">
+      <div>
+        <label class="block mb-1">Full Name</label>
+        <input type="text" id="fullName" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+      </div>
+      <div>
+        <label class="block mb-1">Email</label>
+        <input type="email" id="email" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+      </div>
+      <div>
+        <label class="block mb-1">Phone Number</label>
+        <input type="tel" id="phone" required class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"/>
+      </div>
+      <div>
+        <label class="block mb-1">Why should we hire you?</label>
+        <textarea id="message" required rows="4" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"></textarea>
+      </div>
+      <button type="submit" class="w-full bg-primary text-white py-2 rounded hover:bg-green-700 transition">Submit Application</button>
+    </form>
+  </main>
+
+  <!-- Firebase & Auth Check -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Redirect if not logged in
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        document.getElementById('email').value = user.email;
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      auth.signOut().then(() => window.location.href = "login.html");
+    });
+
+    // Handle submission
+    document.getElementById('applicationForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert("Application submitted successfully! Proceeding to payment.");
+      window.location.href = "payment.html";
+    });
+  </script>
+
+</body>
+</html>

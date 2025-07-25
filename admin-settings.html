@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink Admin | Settings</title>
+  <script type="module" src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://unpkg.com/@heroicons/vue@2.0.16/24/solid/index.js"></script>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- NAVIGATION -->
+  <header class="bg-gray-800 p-4 shadow-md flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-green-400">CareerLink Admin</h1>
+    <nav class="space-x-4 text-sm">
+      <a href="admin-dashboard.html" class="hover:text-green-400">Dashboard</a>
+      <a href="admin-applications.html" class="hover:text-green-400">Applications</a>
+      <a href="admin-messages.html" class="hover:text-green-400">Messages</a>
+      <a href="admin-payments.html" class="hover:text-green-400">Payments</a>
+      <a href="admin-settings.html" class="text-green-400 underline">Settings</a>
+      <button id="logoutBtn" class="bg-red-600 px-3 py-1 rounded hover:bg-red-700 text-sm">Logout</button>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="p-6 max-w-4xl mx-auto mt-6">
+    <h2 class="text-2xl font-bold mb-4 border-b border-gray-600 pb-2">Admin Settings</h2>
+
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg space-y-6">
+      <!-- Change Display Name -->
+      <div>
+        <label class="block text-sm font-semibold mb-1">Update Admin Display Name:</label>
+        <input id="displayNameInput" type="text" placeholder="New display name"
+               class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none" />
+        <button onclick="updateDisplayName()"
+                class="mt-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded">Update</button>
+      </div>
+
+      <!-- Change Email -->
+      <div>
+        <label class="block text-sm font-semibold mb-1">Change Email:</label>
+        <input id="newEmailInput" type="email" placeholder="New email"
+               class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none" />
+        <button onclick="changeEmail()"
+                class="mt-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Change Email</button>
+      </div>
+
+      <!-- Reset Password -->
+      <div>
+        <label class="block text-sm font-semibold mb-1">Reset Password (Email link):</label>
+        <input id="resetEmailInput" type="email" placeholder="Your account email"
+               class="w-full px-4 py-2 rounded bg-gray-700 text-white focus:outline-none" />
+        <button onclick="resetPassword()"
+                class="mt-2 bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded">Send Reset Email</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="text-center mt-10 text-gray-500 text-sm py-6">
+    &copy; 2025 CareerLink Admin Panel. All rights reserved.
+  </footer>
+
+  <!-- FIREBASE AUTH PROTECTION + LOGIC -->
+  <script type="module">
+    import { auth } from './firebase.js';
+    import {
+      signOut,
+      onAuthStateChanged,
+      updateProfile,
+      updateEmail,
+      sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth).then(() => {
+        window.location.href = 'login.html';
+      });
+    });
+
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = 'login.html';
+      }
+    });
+
+    window.updateDisplayName = () => {
+      const name = document.getElementById('displayNameInput').value;
+      if (!name) return alert('Please enter a name.');
+      updateProfile(auth.currentUser, { displayName: name })
+        .then(() => alert('Display name updated.'))
+        .catch(error => alert(error.message));
+    };
+
+    window.changeEmail = () => {
+      const email = document.getElementById('newEmailInput').value;
+      if (!email) return alert('Please enter a valid email.');
+      updateEmail(auth.currentUser, email)
+        .then(() => alert('Email updated.'))
+        .catch(error => alert(error.message));
+    };
+
+    window.resetPassword = () => {
+      const email = document.getElementById('resetEmailInput').value;
+      if (!email) return alert('Please enter your email.');
+      sendPasswordResetEmail(auth, email)
+        .then(() => alert('Reset link sent.'))
+        .catch(error => alert(error.message));
+    };
+  </script>
+</body>
+</html>

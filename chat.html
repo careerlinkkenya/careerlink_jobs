@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Chat</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    #chatbox {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white font-poppins">
+
+  <!-- Auth Check -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, user => {
+      if (!user) window.location.href = "login.html";
+    });
+  </script>
+
+  <header class="p-4 shadow bg-white dark:bg-gray-800 flex justify-between items-center">
+    <a href="home.html" class="text-2xl font-bold text-primary">CareerLink</a>
+  </header>
+
+  <main class="max-w-2xl mx-auto my-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+    <h1 class="text-2xl font-semibold mb-4">💬 CareerLink Assistant</h1>
+    <div id="chatbox" class="space-y-3 mb-4 bg-gray-50 dark:bg-gray-700 p-4 rounded h-96 overflow-y-auto">
+      <!-- Chat messages appear here -->
+    </div>
+    <div class="flex items-center gap-2">
+      <input type="text" id="userInput" placeholder="Ask me anything..." class="flex-1 p-2 rounded border dark:border-gray-600 dark:bg-gray-900"/>
+      <button onclick="sendMessage()" class="bg-primary text-white px-4 py-2 rounded">Send</button>
+    </div>
+  </main>
+
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const input = document.getElementById("userInput");
+
+    const sendMessage = () => {
+      const msg = input.value.trim();
+      if (!msg) return;
+      appendMessage("You", msg);
+      input.value = "";
+      generateResponse(msg);
+    };
+
+    const appendMessage = (sender, text) => {
+      const message = document.createElement("div");
+      message.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      chatbox.appendChild(message);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    };
+
+    const generateResponse = (msg) => {
+      let response = "Sorry, I didn't understand that.";
+
+      const lower = msg.toLowerCase();
+      if (lower.includes("hello") || lower.includes("hi")) {
+        response = "Hello! How can I help you today?";
+      } else if (lower.includes("apply")) {
+        response = "To apply for a job, go to Browse Jobs > Click a job > Apply.";
+      } else if (lower.includes("pay")) {
+        response = "Pay via Airtel Money to 0102960463 (Patrick Muturi) and upload your screenshot.";
+      } else if (lower.includes("contact")) {
+        response = "You can contact us via WhatsApp at +254102960463 or email careerlinkke@gmail.com.";
+      } else if (lower.includes("featured") || lower.includes("premium")) {
+        response = "Featured jobs have higher visibility and faster response. Apply after logging in.";
+      }
+
+      setTimeout(() => appendMessage("CareerLink Assistant", response), 700);
+    };
+  </script>
+
+</body>
+</html>

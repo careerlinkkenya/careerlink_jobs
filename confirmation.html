@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Confirmation | CareerLink</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"/>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init();
+      const urlParams = new URLSearchParams(window.location.search);
+      const type = urlParams.get("type");
+      let amount = "KSh 0";
+
+      if (type === "interview") {
+        amount = "KSh 350";
+      } else if (type === "direct") {
+        amount = "KSh 950";
+      }
+
+      document.getElementById("payment-amount").textContent = amount;
+
+      const screenshot = localStorage.getItem("paymentScreenshot");
+      if (screenshot) {
+        document.getElementById("screenshot").src = screenshot;
+      }
+    });
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white flex items-center justify-center min-h-screen p-4">
+  <div class="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 max-w-lg w-full text-center" data-aos="fade-up">
+    <h1 class="text-3xl font-bold mb-4 text-green-600 dark:text-green-400">Payment Confirmed</h1>
+    <p class="text-lg mb-2">Thank you! Your payment of <span id="payment-amount" class="font-semibold"></span> was received successfully.</p>
+    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Our team will now verify your details and match you to a suitable job.</p>
+
+    <div class="mb-6">
+      <p class="font-medium mb-2">Uploaded Screenshot:</p>
+      <img id="screenshot" src="" alt="Payment Screenshot" class="rounded shadow w-full h-64 object-contain border border-gray-300 dark:border-gray-600" />
+    </div>
+
+    <a href="home.html" class="inline-block bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition">Go to Home</a>
+  </div>
+</body>
+</html>

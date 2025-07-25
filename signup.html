@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Sign Up</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+
+  <!-- Navigation -->
+  <header class="bg-white dark:bg-gray-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-green-600">CareerLink</a>
+      <nav class="space-x-4">
+        <a href="login.html" class="text-green-600 hover:underline">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Signup Form -->
+  <main class="max-w-md mx-auto mt-10 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-center mb-6">Create an Account</h2>
+    <form id="signupForm" class="space-y-4">
+      <div>
+        <label class="block mb-1">Full Name</label>
+        <input type="text" id="name" required class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+      </div>
+      <div>
+        <label class="block mb-1">Email</label>
+        <input type="email" id="email" required class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+      </div>
+      <div>
+        <label class="block mb-1">Phone Number</label>
+        <input type="text" id="phone" required class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+      </div>
+      <div>
+        <label class="block mb-1">Password</label>
+        <input type="password" id="password" minlength="6" required class="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+      </div>
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded">Sign Up</button>
+      <p id="message" class="text-sm text-center mt-4"></p>
+    </form>
+    <p class="text-sm text-center mt-4">Already have an account? <a href="login.html" class="text-green-600 hover:underline">Login here</a></p>
+  </main>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    document.getElementById("signupForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value;
+
+      const message = document.getElementById("message");
+      message.textContent = "Creating your account...";
+
+      if (password.length < 6) {
+        message.textContent = "Password must be at least 6 characters.";
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          return user.updateProfile({
+            displayName: name,
+            phoneNumber: phone
+          });
+        })
+        .then(() => {
+          message.textContent = "Account created successfully! Redirecting...";
+          setTimeout(() => {
+            window.location.href = "home.html";
+          }, 1500);
+        })
+        .catch((error) => {
+          message.textContent = error.message;
+        });
+    });
+  </script>
+
+  <script>feather.replace();</script>
+</body>
+</html>

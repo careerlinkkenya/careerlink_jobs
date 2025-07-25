@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareerLink | Payment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .dark-mode { background-color: #0f172a; color: white; }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 dark:text-white">
+
+  <!-- Navigation -->
+  <nav class="bg-white dark:bg-gray-800 shadow p-4 flex justify-between items-center">
+    <a href="home.html" class="text-xl font-bold text-green-600">CareerLink</a>
+    <button onclick="logout()" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Logout</button>
+  </nav>
+
+  <!-- Payment Section -->
+  <main class="max-w-2xl mx-auto mt-10 p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg" data-aos="fade-up">
+    <h1 class="text-2xl font-bold mb-4 text-center">Complete Your Payment</h1>
+    
+    <p class="mb-2 text-center">
+      To proceed, please make a payment via <span class="font-semibold text-green-600">Airtel Money</span> to:
+    </p>
+
+    <div class="text-center text-lg font-semibold mb-6 text-green-600">
+      <span>0102960463</span> <br/>
+      <span>Patrick Muturi</span>
+    </div>
+
+    <p class="mb-4 text-sm text-center text-gray-600 dark:text-gray-400">Once you've made the payment, upload the transaction screenshot below to confirm your application.</p>
+
+    <form class="space-y-4" id="paymentForm">
+      <label class="block">
+        <span class="text-sm font-medium">Upload Screenshot</span>
+        <input type="file" accept="image/*" class="mt-2 block w-full p-2 border rounded" required>
+      </label>
+
+      <textarea placeholder="Additional Notes (Optional)" rows="3" class="w-full p-2 border rounded"></textarea>
+
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded w-full">
+        Submit Payment Confirmation
+      </button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-10 p-6 text-center text-sm text-gray-500 dark:text-gray-400">
+    &copy; 2025 CareerLink. All rights reserved.
+  </footer>
+
+  <!-- Firebase Auth Check -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+  </script>
+
+  <script>
+    AOS.init();
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Payment confirmation submitted. We will verify and get back to you.');
+      // You can extend this to upload to Firebase Storage and send to Firestore.
+    });
+  </script>
+</body>
+</html>

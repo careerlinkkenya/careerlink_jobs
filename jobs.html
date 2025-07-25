@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareerLink | Jobs</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBnrOBOoAas9DD_FiGJYLLz1RUqT_Clkvg",
+      authDomain: "careerlink-ebeed.firebaseapp.com",
+      projectId: "careerlink-ebeed",
+      storageBucket: "careerlink-ebeed.appspot.com",
+      messagingSenderId: "311863050655",
+      appId: "1:311863050655:web:a12a4cd36014e5e577bdaa"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) window.location.href = 'login.html';
+    });
+  </script>
+  <style>
+    .dropdown:hover .dropdown-menu { display: block; }
+    .floating-icon {
+      position: fixed; bottom: 20px; right: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      z-index: 50;
+    }
+    .floating-icon a {
+      background: #22c55e; color: white; padding: 10px;
+      border-radius: 9999px; text-align: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white font-sans">
+
+<header class="p-4 bg-white dark:bg-gray-800 shadow flex justify-between items-center">
+  <a href="home.html" class="text-green-600 font-bold text-xl">CareerLink</a>
+  <div class="relative dropdown">
+    <button class="text-sm bg-green-600 text-white px-4 py-2 rounded">Menu</button>
+    <div class="dropdown-menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 shadow-lg rounded hidden">
+      <a href="home.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Home</a>
+      <a href="jobs.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Jobs</a>
+      <a href="how-it-works.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">How it Works</a>
+      <a href="contact.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Contact</a>
+      <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Profile</a>
+      <a href="#" onclick="logout()" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Logout</a>
+    </div>
+  </div>
+</header>
+
+<main class="p-6 space-y-6">
+  <h1 class="text-3xl font-bold text-center text-green-600">Available Jobs (25)</h1>
+
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 1</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 1 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 30500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 1. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%201" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 2</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 2 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 31000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 2. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%202" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 3</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 3 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 31500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 3. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%203" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 4</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 4 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 32000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 4. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%204" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 5</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 5 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 32500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 5. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%205" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 6</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 6 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 33000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 6. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%206" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 7</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 7 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 33500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 7. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%207" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 8</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 8 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 34000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 8. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%208" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 9</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 9 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 34500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 9. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%209" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 10</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 10 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 35000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 10. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2010" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 11</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 11 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 35500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 11. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2011" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 12</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 12 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 36000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 12. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2012" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 13</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 13 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 36500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 13. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2013" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 14</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 14 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 37000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 14. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2014" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 15</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 15 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 37500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 15. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2015" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 16</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 16 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 38000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 16. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2016" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 17</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 17 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 38500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 17. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2017" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 18</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 18 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 39000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 18. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2018" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 19</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 19 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 39500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 19. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2019" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 20</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 20 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 40000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 20. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2020" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 21</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 21 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 40500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 21. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2021" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 22</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 22 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 41000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 22. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2022" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 23</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 23 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 41500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 23. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2023" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 24</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 24 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 42000</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 24. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2024" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6" data-aos="fade-up">
+    <h2 class="text-xl font-semibold text-green-700">Job Title 25</h2>
+    <p class="text-sm text-gray-600 dark:text-gray-300">Company 25 — Nairobi</p>
+    <p class="text-sm mt-2 text-gray-500">Salary: KSh 42500</p>
+    <p class="mt-2 text-gray-700 dark:text-gray-300">Description: This is a sample job listing number 25. Applicants should have experience in relevant fields and strong communication skills.</p>
+    <a href="application.html?job=Job%20Title%2025" class="inline-block mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Apply</a>
+  </div>
+    
+</main>
+
+<div class="floating-icon">
+  <a href="https://wa.me/254102960463" target="_blank" title="Chat on WhatsApp">💬</a>
+  <a href="mailto:careerlinkke@gmail.com" title="Send Email">📧</a>
+</div>
+
+<script>
+  AOS.init();
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      window.location.href = 'login.html';
+    });
+  }
+</script>
+
+</body>
+</html>
